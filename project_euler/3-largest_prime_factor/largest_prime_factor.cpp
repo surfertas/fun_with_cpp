@@ -11,12 +11,12 @@ void usage()
 std::vector<size_t> get_prime_factors(size_t target)
 {
   using namespace std;
-
-  unordered_set<size_t> found;
+  
   vector<size_t> factors;
-  auto start = 2;
+  unordered_set<size_t> found;
   vector<size_t> scale(target);
   iota(scale.begin(), scale.end(), start);
+  auto start = 2;
   auto base = start;
   auto multiple = 0;
 
