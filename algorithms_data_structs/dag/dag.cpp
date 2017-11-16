@@ -13,11 +13,16 @@ int main(int argc, char** argv)
     auto v2 = std::make_shared<Vertex>(std::move(meta2));
     
     Edge e1(v1,v2);
-   
+    Edge e2(v2,v1);
+
     Graph G;
     G.insert_edge(e1);
     G.insert_vertex(v1);
     G.insert_vertex(v2);
+
+    // Check if setting undirected fails.
+    G.insert_edge(e2);
+   
     G.print_graph();
 }
     

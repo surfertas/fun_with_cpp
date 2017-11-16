@@ -6,11 +6,13 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 namespace dag {
 
 struct Meta {
   std::string name;
+  std::size_t id; 
 };
 
 struct Vertex {
@@ -41,11 +43,35 @@ struct Graph {
   Graph() : edges_(), vertices_() {}
   
   void insert_edge(Edge e) {
-    edges_.emplace_back(e);
+    if (!(check_edge_exists(e) || check_undirected_edge(e))) {
+      edges_.emplace_back(e);
+    }
   }
 
   void insert_vertex(std::shared_ptr<Vertex> v) {
     vertices_.emplace_back(v);
+  }
+
+  bool check_edge_exists(Edge e) {
+    auto exists = std::find_if(edges_.begin(), edges_.end(), [&](Edge edge) {
+      return ((e.head_ == edge.head_) && (e.tail_ == edge.tail_));
+    });
+    if (exists != edges_.end()) {
+      std::cout << "Edge already exists.\n";
+      return true;
+    }
+    return false;
+  }
+  
+  bool check_undirected_edge(Edge e) {
+    auto undirected = std::find_if(edges_.begin(), edges_.end(), [&](Edge edge) {
+      return ((e.head_ == edge.tail_) && (e.tail_ == edge.head_));
+    });
+    if (undirected != edges_.end()) {
+      std::cout << "Including edge would make graph undirected. \n";
+      return true;
+    }
+    return false;
   }
 
   void print_graph() {
@@ -59,4 +85,4 @@ private:
 };
 
 }// dag
-#endif
+#endif // DAG_H
