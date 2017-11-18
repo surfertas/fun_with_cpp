@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unordered_set>
 #include <algorithm>
+#include <math.h>
 
 void usage()
 {
@@ -8,52 +9,43 @@ void usage()
   exit(1);
 }
 
-std::vector<size_t> get_prime_factors(size_t target)
-{
+bool is_prime(size_t target) {
   using namespace std;
-  
-  vector<size_t> factors;
-  unordered_set<size_t> found;
-  vector<size_t> scale(target);
-  iota(scale.begin(), scale.end(), start);
-  auto start = 2;
-  auto base = start;
-  auto multiple = 0;
-
-  while (base < target) {
-    auto fit = find_if(found.begin(), found.end(), [&](size_t x) {
-      return x == base;
-    });
-
-    if (fit == found.end()) {
-      factors.push_back(base);
-    }
-  
-    auto sit = find_if(scale.begin(), scale.end(), [&](size_t x) {
-      return x == base;
-    });
-
-    while (sit != scale.end()) {
-      multiple = base * (*sit);
-      auto fit = found.find(multiple);
-      if (fit == found.end()) {
-        found.insert(multiple);
-      }
-      sit++;
-    }
-    while (found.find(++base) != found.end()) {};
+  bool is_bool;
+  vector<size_t> scale(target-1);
+  iota(scale.begin(), scale.end(), 2);
+  auto it = scale.begin();
+  while ((target % *it) != 0) {
+    it++;
   }
-  return factors;
+  if (it == scale.end()) {
+    is_bool = true;
+  } else {
+    is_bool =  false;
+  }
+  return is_bool;
 }
-
 
 int main(int argc, char** argv)
 {
   using namespace std;
   if (argc < 2) { usage(); }
   auto start = 2;
-  vector<size_t> primes = get_prime_factors(atoi(argv[1]));
-  for (auto p : primes) {
-    cout << p << "\n";
-  }
+  auto target = atoi(argv[1]);
+  vector<size_t> scale(target);
+  iota(scale.begin(), scale.end(), 2);
+  unordered_set<size_t> primes;
+  vector<size_t> factors;
+
+  for (auto x : scale) {
+    if (is_prime(x) == 0) {
+      primes.insert(x);
+      while ((target % x) == 0) {
+        factors.emplace_back(x);
+        target = target / x;
+      }
+      if (target==1) { break; }
+    }
+  } 
+  std::cout << "Largest prime factor is: " << *(factors.end()-1) << "\n";
 }
