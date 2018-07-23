@@ -3,7 +3,7 @@ SRC_DIR=../src
 INC_DIR=../include
 
 CC=/usr/bin/g++
-CFLAGS=--std=c++11 -Wall -I$(INC_DIR)
+CFLAGS=--std=c++14 -Wall -I$(INC_DIR) -g
 
 OUT=largest_prime_factor
 
