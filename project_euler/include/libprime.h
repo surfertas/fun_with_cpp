@@ -11,7 +11,7 @@ public:
   PrimeUtil();
   ~PrimeUtil();
 
-  size_t is_prime(size_t target);
+  auto is_prime(size_t target) -> bool;
 
 }; 
 } //prime_util
