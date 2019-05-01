@@ -8,7 +8,7 @@ namespace prime_util {
 PrimeUtil::PrimeUtil() {};
 PrimeUtil::~PrimeUtil() {};
 
-auto PrimeUtil::is_prime(size_t target) -> bool
+auto PrimeUtil::is_prime(const size_t target) -> bool
 {
   auto is_bool { false };
   auto scale = std::vector<size_t>(target-1);
