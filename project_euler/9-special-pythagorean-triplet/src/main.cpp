@@ -3,13 +3,15 @@
 #include <iostream>
 #include <tuple>
 
-bool isPythogoreanTriplet(const size_t a, const size_t b, const size_t c) {
+auto isPythogoreanTriplet(const size_t a, const size_t b, const size_t c)
+    -> bool {
   auto testOne = a < b && b < c;
   auto testTwo = (a*a + b*b) == c*c;
   return testOne && testTwo;
 }
 
-std::tuple<size_t, size_t, size_t> generatePythogoreanTriplet(const size_t m, const size_t n) {
+auto generatePythogoreanTriplet(const size_t m, const size_t n)
+    ->  std::tuple<size_t, size_t, size_t> {
   auto a = 2 * m * n;
   auto b = m * m - n * n;
   auto c = m * m + n * n;
