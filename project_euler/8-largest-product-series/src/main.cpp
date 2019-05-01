@@ -29,6 +29,6 @@ int main(int argc, char** argv)
     if (product > largest) {
         largest = product;
     }
-    std::cout << largest << "\n";
   }
+  std::cout << largest << std::endl;
 }
